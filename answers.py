@@ -23,26 +23,25 @@ Place all written answers from `assignment-01.md` here for easier grading.
 
   - 1d - Yes. This is the reverse of the previous problem and asks if n^1.01 asymptotically dominates c·log(n)^2. Any exponent will always outgrow any log.
 
-  - 1e - Yes. Let us look at the example c=2 and n={10, 20, 30} for sqrt(n)≤c·log(n)^3. At n=10, we have 3.16≤2; at n=20, we have 4.47≤4.20; but at n=30, we have 5.48≤6.44. This value will be true at every larger value of n showing asymptotic dominance of the log over our square root function.
+  - 1e - No. We can rewrite sqrt(n) as n^(1/2). We know that log always outperforms (is faster) than any exponent, so log(n)^3 cannot dominate sqrt(n).
 
-  - 1f - No. This is the reverse of the above problem. Using the same values above for c=2 and n={10, 20, 30}, we have 3.16≥2; at n=20, we have 4.47≥4.20; and at n=30, we have 5.48≥6.44. The function begins true but becomes false showing that the square root is asymptotically dominant over the log and not the other way around.
+  - 1f - Yes. This is the reverse of the above problem. Exponents always dominate logs, so the statement must be true.
 
-  - 1g - Logically, the intersection of *O* and Ω is the point at which both are equal. Representing *O* as g(n)≤f(n) and Ω as g(n)≥f(n), both statements are only true at THETA when the equations are equal. Our *o* and ω notations can be represented as g(n)<f(n) and g(n)>f(n) respectively. For no real number can a number be both greater and less than another value. If no real number can be the solution, then the only solution is the empty set.
+  - 1g - Logically, the intersection of *O* and Ω is the point at which both are equal. Representing *O* as g(n)≤f(n) and Ω as g(n)≥f(n), both statements are only true at THETA when the equations are equal. Our *o* and ω notations can be represented as g(n)<f(n) and g(n)>f(n) respectively. An intersection of these would be a number that is both greater than and less than another. For no real number can a number be both greater and less than another value. If no real number can be the solution, then the only solution is the empty set.
 
 2. **SPARC to Python**
 
   - 2b - This function takes two inputs and ultimately returns the maximum of them both. Before doing so, however, it loops through itself until the minimum value becomes equal to 0 by resetting the minimum value to the maximum value % the minimum value.
 
-  - 2c - Regarding the work of foo, let us assume that determining if a=0 or b=0 takes time c each. This means that every loop will be multiplied by 2c. The number of loops we progress is determined by how long it will take the minimum of our inputs to decrease to 0. Assuming the worst possible outcome, our minimum will decrease by 1 every loop, so it will take a number of loops equal to itself to reach 0. Our work, then, is __2c(min(a,b))__.
-  Our span assumed that we have as many processors as we need to perform this work in parallel. Our conditional checks could be done in parallel, but the number of loops is still determined by our input, so our span is __c(min(a,b)__.
+  - 2c - Our work is determined by the full number of loops we progress through which is determined by the number of times we can fit the minimum of our inputs into the maximum of them recursively. In a worst-case scenario, our minimum value will decrease by 1 until it reaches 0 and we exit our loop. Our Work, therefore, is *O*min(a,b). Because our code is not done in parallel and instead runs everything in order, our Span is identical to our work.
 
 3. **Parallelism and recursion**
 
-  - 3b - Work and span are both equal to n, the size of the input. There is no parallelism performed, and the amount of work done cleanly goes down each member of the function.
+  - 3b - Work and span are both equal to *O*(n), the size of the input. There is no parallelism performed, and the amount of work done cleanly goes down each member of the function.
 
-  - 3d - The recursive algorithm has work and span equal to n·log(n) and span equal to n·log(n). log(n) represents the number of splits down the binary tree assuming that, in the worst case scenario, the longest key string will be 1, and the time to do this is n.
+  - 3d - The recursive algorithm involves splitting the list in half until it has only sections that contain homogenous characters. In a worst-case situation where no same characters are adjacent, it will perform the split log(n) times. If we split every character into its own list, we perform this calculation 2^(log(n)) times. This makes both our Work and our Span *O*(n) because the calculation has no parallelism.
 
-  - 3e - If you add multithreading and parallelize the function, your span decreases to log(n) while your work remains the same.
+  - 3e - If you add multithreading and parallelize the function, we can perform *O*(n) Work in *O*(log(n)) Span.
   
 4. **GCD**
 """
