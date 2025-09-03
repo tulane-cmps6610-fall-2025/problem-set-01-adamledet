@@ -64,21 +64,55 @@ class Result:
 
 # Function called multiple times. Result is global values
 def longest_run_recursive(mylist, key, result):
-    print(mylist)
-    if(not Result.is_entire_range(mylist)):
-      longest_run_recursive(mylist[:len(mylist)//2],key, result)
-      longest_run_recursive(mylist[len(mylist)//2:],key, result)
+    #print(mylist)
+    if(not Result.is_entire_range(mylist) and len(mylist)>0):
+      n = len(mylist)//2
+      dist = 0
+      checkingMidsection = True
+      while(checkingMidsection):
+        #print(mylist, "; n(+dist/-dist):", (n+dist), "/" ,(n-dist),"; ", "n+dist=",mylist[n+dist], "; n-dist=",mylist[n-dist])
+        #print(n+dist, n-dist, len(mylist))
+        if((n+dist)<len(mylist)):
+          if(mylist[n+dist]!=key):
+            n = (n+dist)
+            checkingMidsection = False
+        if((n-dist)>=0):
+          if(mylist[n-dist]!=key and checkingMidsection):
+            n = (n-dist+1)
+            checkingMidsection = False
+        dist+=1
+      longest_run_recursive(mylist[:n],key, result)
+      longest_run_recursive(mylist[n:],key, result)
     else:
-      if(result.longest_size<len(mylist)):
-        print("RESIZE: ", result.longest_size, " -> ", len(mylist))
+      if(result.longest_size<len(mylist) and mylist[0]==key):
+        #print("RESIZE: ", result.longest_size, " -> ", len(mylist))
         result.longest_size = len(mylist)
 
 # Main called once. Main function calls resursive
 def longest_run_recursive_main(mylist, key):
   r = Result(mylist[:len(mylist)//2],mylist[len(mylist)//2:],0,mylist) #Set initial values for Result Class to contqain global values
+  #print(mylist)
   if(not Result.is_entire_range(mylist)):
-      longest_run_recursive(mylist[:len(mylist)//2],key, r)
-      longest_run_recursive(mylist[len(mylist)//2:],key, r)
+    n = len(mylist)//2
+    dist = 0
+    checkingMidsection = True
+    while(checkingMidsection):
+      #print(mylist, "; n(+dist/-dist):", (n+dist), "/" ,(n-dist),"; ", "n+dist=",mylist[n+dist], "; n-dist=",mylist[n-dist])
+      if((n+dist)<len(mylist)):
+        if(mylist[n+dist]!=key):
+          n = (n+dist)
+          checkingMidsection = False
+      if((n-dist)>=0):
+        if(mylist[n-dist]!=key and checkingMidsection):
+          n = (n-dist+1)
+          checkingMidsection = False
+      dist+=1
+    longest_run_recursive(mylist[:n],key, r)
+    longest_run_recursive(mylist[n:],key, r)
+  elif(mylist[0]!=key):
+    return(0)
+  else:
+    return(len(r.is_entire_range))
   return(r.longest_size)
 
 ## Feel free to add your own tests here.
@@ -89,4 +123,6 @@ print(foo(2316784621378468712369,4))# Proper foo implementation
 
 print(longest_run([2,12,12,8,12,12,12,0,12,1], 12))# Proper longest_run implementation
 
-longest_run_recursive_main([2,12,12,8,12,12,12,0,12,1], 12)# recursive main incorrect because it does not account for splitting list between 2 keys.
+longest_run_recursive_main([12, 12, 12, 12, 1,12], 12)# Proper longest_run_recursive implementation
+
+"""I'm aware that a large section of my longest_run_recursive_main and longest_run_recursive functions are identical and should be combined in a 'helper' function or, better, both should be combined into a single function."""

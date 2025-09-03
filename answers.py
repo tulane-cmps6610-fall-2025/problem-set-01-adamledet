@@ -19,7 +19,7 @@ Place all written answers from `assignment-01.md` here for easier grading.
 
   - 1b - No. As a counter example, let us look at c=5 and every value of n. 2^(2^n) ≤ 5·2^(n). While this is true at n=1 and n=2, at any value of n=3 or larger, the statement is false.
 
-  - 1c - No. Logs are always better performing than any exponent. Let us look at c=10 in this example. n^(1.01) ≤ 10·log(n)^2 for every value of n. At n=1, our results are 1≤0 which is false, but as our n increases, n^1.01 asymptotically dominates c·log(n)^2 and is true at every occurence.
+  - 1c - No. Logs are always better performing than any exponent. Let us look at c=10 in this example. n^(1.01) ≤ 10·log(n)^2 for every value of n. At n < 3, our equation is false, but after this point, our exponent function dominates out log at every greater n.
 
   - 1d - Yes. This is the reverse of the previous problem and asks if n^1.01 asymptotically dominates c·log(n)^2. Any exponent will always outgrow any log.
 
@@ -40,9 +40,9 @@ Place all written answers from `assignment-01.md` here for easier grading.
 
   - 3b - Work and span are both equal to n, the size of the input. There is no parallelism performed, and the amount of work done cleanly goes down each member of the function.
 
-  - 3d - The recursive algorithm has work equal to n·log(n) and span equal to log(n). log(n) represents the number of splits down the binary tree assuming that, in the worst case scenario, the longest key string will be 1.
+  - 3d - The recursive algorithm has work and span equal to n·log(n) and span equal to n·log(n). log(n) represents the number of splits down the binary tree assuming that, in the worst case scenario, the longest key string will be 1, and the time to do this is n.
 
-  - 3e - UNCERTAIN HOW DIFFERENT FROM 3D
+  - 3e - If you add multithreading and parallelize the function, your span decreases to log(n) while your work remains the same.
   
 4. **GCD**
 """
